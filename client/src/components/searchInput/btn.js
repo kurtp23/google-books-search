@@ -1,7 +1,11 @@
 import React from "react";
 
-function Btn() {
-  return <button class="button is-primary">Search</button>;
+function Btn(props) {
+  return (
+    <button onClick={props.onClick} class="button is-primary">
+      Search
+    </button>
+  );
 }
 
 export default Btn;

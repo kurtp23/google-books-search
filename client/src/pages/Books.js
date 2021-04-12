@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Search from "../components/searchInput/search.js";
 import Btn from "../components/searchInput/btn.js";
+import BookCards from "../components/searchContainer/bookCards.js";
+import axios from "axios";
 
 function Books() {
   // Setting our component's initial state
@@ -14,15 +16,19 @@ function Books() {
   useEffect(() => {
     loadBooks();
   }, []);
-
+  console.log(books);
+  const googleCall = () => {
+    axios
+      .get("https://www.googleapis.com/books/v1/volumes?q=LionKing")
+      .then((response) => {
+        setBooks(response.data.items);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   // Loads all books and sets them to books
-  function loadBooks() {
-    // API.getBooks()
-    //   .then(res =>
-    //     setBooks(res.data)
-    //   )
-    //   .catch(err => console.log(err));
-  }
+  function loadBooks() {}
 
   function handleInputChange() {
     // add code to control the components here
@@ -41,9 +47,13 @@ function Books() {
       <div class="columns">
         <div class="column">
           <Search />
-          <Btn />
+          <Btn onClick={googleCall} />
         </div>
-        <div class="column">Display Results</div>
+        <div class="column">
+          {books.map((item) => {
+            return <BookCards title={item.volumeInfo.title} author={item.volumeInfo.author} />;
+          })}
+        </div>
         <div class="column">Display Saved</div>
       </div>
     </>
