@@ -8,10 +8,11 @@ const Books = require("../models/book.js");
 
 // If no API routes are hit, send the React app
 Router.post("/api/addBook", async (req, res) => {
-  console.log(req.body);
+  console.log("this is body", req.body);
   const book = new Books(req.body);
   Books.create(book)
     .then((dbBook) => {
+      console.log(dbBook);
       res.json(dbBook);
     })
     .catch((err) => {
