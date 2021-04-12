@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import Search from "../components/searchInput/search.js";
 import Btn from "../components/searchInput/btn.js";
 import BookCards from "../components/searchContainer/bookCards.js";
+import saveBook from "../utils/API.js";
 import axios from "axios";
 
 function Books() {
   // Setting our component's initial state
   const [books, setBooks] = useState([]);
+  const [search, setSearch] = useState();
 
   // update the initial state to provide values for
   // the controls in the form (use empty strings)
@@ -18,8 +20,9 @@ function Books() {
   }, []);
   console.log(books);
   const googleCall = () => {
+    const url = "https://www.googleapis.com/books/v1/volumes?q=" + search;
     axios
-      .get("https://www.googleapis.com/books/v1/volumes?q=LionKing")
+      .get(url)
       .then((response) => {
         setBooks(response.data.items);
       })
@@ -30,8 +33,9 @@ function Books() {
   // Loads all books and sets them to books
   function loadBooks() {}
 
-  function handleInputChange() {
-    // add code to control the components here
+  function handleInputChange(event) {
+    setSearch(event.target.value);
+    console.log(event.target.value);
   }
 
   function handleFormSubmit() {
@@ -44,17 +48,27 @@ function Books() {
 
   return (
     <>
-      <div class="columns">
-        <div class="column">
-          <Search />
+      <div className="columns">
+        <div className="column">
+          <Search handleInput={handleInputChange} result={search} />
           <Btn onClick={googleCall} />
         </div>
-        <div class="column">
+        <div className="column">
           {books.map((item) => {
-            return <BookCards title={item.volumeInfo.title} author={item.volumeInfo.author} />;
+            return (
+              <BookCards
+                title={item.volumeInfo.title}
+                author={item.volumeInfo.authors}
+                image={
+                  item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail : "no image"
+                }
+                description={item.volumeInfo.description}
+                id={item.id}
+              />
+            );
           })}
         </div>
-        <div class="column">Display Saved</div>
+        <div className="column">Display Saved</div>
       </div>
     </>
   );
