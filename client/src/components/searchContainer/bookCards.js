@@ -14,7 +14,7 @@ function BookCards(props) {
             <div className="media-left">
               <button
                 onClick={() =>
-                  console.log({
+                  props.bookSave({
                     image: props.image,
                     title: props.title,
                     author: props.author,

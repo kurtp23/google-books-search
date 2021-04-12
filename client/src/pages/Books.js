@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Search from "../components/searchInput/search.js";
 import Btn from "../components/searchInput/btn.js";
 import BookCards from "../components/searchContainer/bookCards.js";
-import saveBook from "../utils/API.js";
+import Api from "../utils/API.js";
 import axios from "axios";
 
 function Books() {
@@ -64,6 +64,7 @@ function Books() {
                 }
                 description={item.volumeInfo.description}
                 id={item.id}
+                bookSave={Api.saveBook}
               />
             );
           })}
