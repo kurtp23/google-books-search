@@ -18,13 +18,10 @@ function Books() {
 
   // Load all books and store them with setBooks
   useEffect(() => {
-    loadBooks();
     Api.getBooks().then((data) => {
       setSavedBooks(data.data);
     });
-  }, []);
-
-  console.log(books);
+  }, [savedBooks]);
   const googleCall = () => {
     const url = "https://www.googleapis.com/books/v1/volumes?q=" + search;
     axios
@@ -36,8 +33,8 @@ function Books() {
         console.log(error);
       });
   };
+
   // Loads all books and sets them to books
-  function loadBooks() {}
 
   function handleInputChange(event) {
     setSearch(event.target.value);

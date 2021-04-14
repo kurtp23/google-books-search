@@ -10,7 +10,6 @@ const Books = require("../models/book.js");
 // If no API routes are hit, send the React app
 
 Router.delete("/api/books/:id", async (req, res) => {
-  console.log("this is body", req.params.id);
   Books.remove({ id: req.params.id })
     .then((data) => {
       console.log("this is data", data);

@@ -9,11 +9,8 @@ const Books = require("../models/book.js");
 // If no API routes are hit, send the React app
 
 Router.get("/api/books", async (req, res) => {
-  console.log("this is body", req.body);
   Books.find({})
     .then((data) => {
-      console.log("this is data", data);
-
       res.json(data);
     })
     .catch((err) => {

@@ -12,7 +12,6 @@ Router.post("/api/addBook", async (req, res) => {
 
   Books.create(req.body)
     .then((dbBook) => {
-      console.log("this is book", dbBook);
       res.json(dbBook);
     })
     .catch((err) => {
