@@ -12,7 +12,7 @@ function SavedCards(props) {
         <div className="card-content">
           <div className="media">
             <div className="media-left">
-              <button onClick={() => console.log(props.id)} class="button is-warning">
+              <button onClick={() => props.delete(props.id)} class="button is-warning">
                 Remove
               </button>
             </div>

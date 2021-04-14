@@ -1,3 +1,4 @@
+const { error } = require("console");
 const path = require("path");
 const Router = require("express").Router();
 const Books = require("../models/book.js");
@@ -8,15 +9,14 @@ const Books = require("../models/book.js");
 
 // If no API routes are hit, send the React app
 
-Router.get("/api/books", async (req, res) => {
-  console.log("this is body", req.body);
-  Books.find({})
+Router.delete("/api/books/:id", async (req, res) => {
+  console.log("this is body", req.params.id);
+  Books.remove({ id: req.params.id })
     .then((data) => {
       console.log("this is data", data);
-
-      res.json(data);
     })
     .catch((err) => {
+      console.log(err);
       res.status(200).json(err);
     });
 });

@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const routeAdd = require("./routes/index.js");
 const routeGet = require("./routes/get.js");
+const routeDelete = require("./routes/delete.js");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -17,6 +18,7 @@ if (process.env.NODE_ENV === "production") {
 // Add routes, both API and view
 app.use(routeAdd);
 app.use(routeGet);
+app.use(routeDelete);
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/public/index.html"));
 });

@@ -85,6 +85,7 @@ function Books() {
                     image={item.image ? item.image : "no image"}
                     description={item.description}
                     id={item.id}
+                    delete={Api.deleteBook}
                   />
                 );
               })
