@@ -19,7 +19,7 @@ function BookCards(props) {
                     title: props.title,
                     author: props.author,
                     description: props.description,
-                    key: props.id,
+                    id: props.id,
                   })
                 }
                 class="button is-warning"
