@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Search from "../components/searchInput/search.js";
 import Btn from "../components/searchInput/btn.js";
 import BookCards from "../components/searchContainer/bookCards.js";
+import SavedCards from "../components/searchContainer/SavedCards.js";
 import Api from "../utils/API.js";
 import axios from "axios";
 
@@ -9,6 +10,7 @@ function Books() {
   // Setting our component's initial state
   const [books, setBooks] = useState([]);
   const [search, setSearch] = useState();
+  const [savedBooks, setSavedBooks] = useState([]);
 
   // update the initial state to provide values for
   // the controls in the form (use empty strings)
@@ -17,7 +19,11 @@ function Books() {
   // Load all books and store them with setBooks
   useEffect(() => {
     loadBooks();
+    Api.getBooks().then((data) => {
+      setSavedBooks(data.data);
+    });
   }, []);
+
   console.log(books);
   const googleCall = () => {
     const url = "https://www.googleapis.com/books/v1/volumes?q=" + search;
@@ -69,10 +75,24 @@ function Books() {
             );
           })}
         </div>
-        <div className="column">Display Saved</div>
+        <div className="column">
+          {savedBooks
+            ? savedBooks.map((item) => {
+                return (
+                  <SavedCards
+                    title={item.title}
+                    author={item.authors}
+                    image={item.image ? item.image : "no image"}
+                    description={item.description}
+                    id={item.id}
+                  />
+                );
+              })
+            : "no books"}
+        </div>
       </div>
     </>
   );
 }
-
+//set state with data .then
 export default Books;
